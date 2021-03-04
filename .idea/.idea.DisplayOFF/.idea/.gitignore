@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/projectSettingsUpdater.xml
+/contentModel.xml
+/.idea.DisplayOFF.iml
+# Datasource local storage ignored files
+/../../../../../../../:\RiderProject\RaspberryPi\DisplayOff\.idea\.idea.DisplayOFF\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
