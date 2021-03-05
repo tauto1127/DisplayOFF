@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -19,16 +21,23 @@ namespace DisplayOFF
         static extern bool GetAsyncKeyState(int nVirtKey);
 
         private NotifyIcon _notifyIcon;
-       
+        
 
         private Task task = Task.Run((() =>
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             while (true)
             {
-                if (GetAsyncKeyState(0x5B) && GetAsyncKeyState(0x4F))
+                if (stopwatch.ElapsedMilliseconds >= 4000)
                 {
-                    PowerOff();
+                    if (GetAsyncKeyState(0x5B) && GetAsyncKeyState(0x4F))
+                    {
+                        stopwatch.Restart();
+                        PowerOff();
+                    }
                 }
+                
             }
         }));
         
@@ -48,16 +57,14 @@ namespace DisplayOFF
         static extern IntPtr PostMessage(int hWnd, uint Msg, int wParam, int lParam);
         public static void PowerOff()
         {
-//モニター停止
-            try
-            {
-                PostMessage(-1, WM_SYSCOMMAND, SC_MONITORPOWER, 2);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            //モニター停止
+
+            
+            Thread.Sleep(1000);
+            PostMessage(-1, WM_SYSCOMMAND, SC_MONITORPOWER, 2);
+            
+            
+            
         }
 
         private void KeyloggerButton_OnClick(object sender, RoutedEventArgs e)
