@@ -37,7 +37,7 @@ namespace DisplayOFF
                         PowerOff();
                     }
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(150);
 
             }
         }));
